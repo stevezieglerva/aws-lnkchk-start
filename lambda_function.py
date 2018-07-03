@@ -1,4 +1,5 @@
 import boto3
+from datetime import datetime
 
 def get_bucket_file_url(record):
     #https://s3.amazonaws.com/link-checker/2018-05-27-235740.txt
