@@ -21,7 +21,9 @@ def lambda_handler(event, context):
     files_found = {}
     count = 0
 
-    sqs = boto3.client('sqs')
+    db = boto3.resource("dynamodb")
+    queue = db.Table("lnkchk-queue")
+
     s3 = boto3.resource('s3')
     
     for record in event["Records"]:
@@ -41,19 +43,8 @@ def lambda_handler(event, context):
             line = line + 1
             if url_line != "":
                 print("\t\t\turl_line: " + url_line)
-                queue_url = 'https://queue.amazonaws.com/112280397275/lnkchk-pages'
-                response = sqs.send_message(QueueUrl=queue_url, DelaySeconds=10, MessageBody=url_line, MessageAttributes={
-                    'file': {
-                        'DataType': 'String',
-                        'StringValue': newfile
-                    },
-                    'line': {
-                        'DataType': 'String',
-                        'StringValue': str(line)
-                    }
-                    }
-                    )
-            print("\t\t\tresponse: " + str(response))
+                queue.put_item(Item = {"url": url_line, "source" : "s3 upload", "main_site" : url_line, "timestamp" : str(datetime.now())})
+
                 
                 
     return files_found
