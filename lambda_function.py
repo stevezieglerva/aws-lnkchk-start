@@ -41,6 +41,7 @@ def lambda_handler(event, context):
         print("\t\t\tFile contents: " + file_contents)
         line = 0
         for url_line in file_contents.split("\n"):
+            url_line.strip()
             line = line + 1
             if url_line != "":
                 print("\t\t\turl_line: " + url_line)

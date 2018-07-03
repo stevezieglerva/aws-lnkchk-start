@@ -4,7 +4,7 @@ REM Replace spaces with underscores
 set timestamp=%timestamp: =_%
 
 echo Download
-echo http://www.nerdthoughts.net > ".\s3_link-checker\%timestamp%.txt"
+copy test_links.txt ".\s3_link-checker\%timestamp%.txt"
 call aws s3 sync .\s3_link-checker\ s3://link-checker/ 
 
 
