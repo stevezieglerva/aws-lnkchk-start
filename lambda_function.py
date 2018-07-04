@@ -1,5 +1,6 @@
 import boto3
 from datetime import datetime
+from LocalTime import *
 
 def get_bucket_file_url(record):
     #https://s3.amazonaws.com/link-checker/2018-05-27-235740.txt
@@ -16,7 +17,8 @@ def get_bucket_name_from_arn(bucket_arn):
 
 def lambda_handler(event, context):
     # TODO implement
-    print("Starting ...")
+    local_time = LocalTime()
+    print("Starting at " + local_time.now())
     print("\tEvent: " + str(event))
     
     files_found = {}
@@ -45,7 +47,7 @@ def lambda_handler(event, context):
             line = line + 1
             if url_line != "":
                 print("\t\t\turl_line: " + url_line)
-                queue.put_item(Item = {"url": url_line, "source" : "s3 upload", "main_site" : url_line, "timestamp" : str(datetime.now())})
+                queue.put_item(Item = {"url": url_line, "source" : "s3 upload", "main_site" : url_line, "timestamp" : local_time.now())})
 
                 
                 
