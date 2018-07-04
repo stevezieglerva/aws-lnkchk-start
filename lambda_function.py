@@ -47,7 +47,7 @@ def lambda_handler(event, context):
             line = line + 1
             if url_line != "":
                 print("\t\t\turl_line: " + url_line)
-                queue.put_item(Item = {"url": url_line, "source" : "s3 upload", "main_site" : url_line, "timestamp" : local_time.now())})
+                queue.put_item(Item = {"url": url_line, "source" : "s3 upload", "main_site" : url_line, "timestamp" : str(local_time.utc), "timestamp_local" : str(local_time.local) })
 
                 
                 
