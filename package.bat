@@ -11,6 +11,6 @@ REM Upload the new code
 call aws lambda update-function-code --function-name %function_name% --zip-file fileb://lambda_function.zip
 
 REM Call the function
-cd test
-call sync_s3_link-checker.bat
-call cd ..
+REM cd test
+REM call sync_s3_link-checker.bat
+REM call cd ..
